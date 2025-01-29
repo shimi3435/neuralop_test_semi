@@ -42,6 +42,8 @@ exampleに.py形式と.ipynb形式（ジュピターノートブック形式）�
 
 ## wandb （Weights & Biases）
 
+きれいに可視化できるやつ
+
 https://wandb.ai/site/ja/
 
 1. wandbでアカウント登録（無料）
@@ -49,3 +51,16 @@ https://wandb.ai/site/ja/
 3. pip install wandb
 4. wandb login
 5. APIキーをペースト
+
+## 自分のデータを使ってFNO学習したい場合
+
+exampleではload_darcy_flow_small()を用いてデータを読み込んでいる
+
+neuralop/data/datasets/darcy.pyに書かれているload_darcy_flow_small()を見に行く
+
+load_darcy_flow_small()を見ると、DarcyDatasetクラスが定義されており、そこでPTDatasetクラスが使用されている
+
+同じディレクトリにあるpt_dataset.pyに書かれているPTDatasetクラスを見ると、# Load train data部分と# load test data部分が見つかる
+
+この部分でtorch.loadされているpytoch tensorを自分のものに置き換えると自分のデータを使用できる（はず）
+
