@@ -164,3 +164,4 @@ cython_debug/
 .python-version
 results
 neuraloperator
+wandb
