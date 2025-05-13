@@ -124,6 +124,81 @@ Dataset Linkからお好きなデータセットをダウンロードし、data�
 python train.py --gpu 0 --dataset heat2d --use-normalizer unit  --normalize_x unit --component all --comment rel2  --loss-name rel2 --epochs 500 --batch-size 4 --model-name CGPT --optimizer AdamW --weight-decay 0.00005   --lr 0.001 --lr-method cycle  --grad-clip 1000.0   --n-hidden 128 --n-layers 3  --use-tb 0 
 ```
 
+## NVIDIA PhysicsNeMo編
+
+TOPページ https://developer.nvidia.com/physicsnemo
+
+Getting Started https://docs.nvidia.com/deeplearning/physicsnemo/getting-started/index.html
+
+サーバーで動かす場合，個人のDockerの環境構築とかは必要ない（はず）
+
+dockerの使い方はググればいろいろな人が記事をかいてるのでここでは省略
+
+Google Colabで動かせるか試行中・・・
+
+下記はGPU付きの個人所有WindowsPC向けの環境構築
+
+### Dockerのインストール
+
+https://docs.docker.com/engine/install/ubuntu/
+
+上記URLのInstall using the apt repositoryでやるのがよさそう
+
+### NVIDIA Container Toolkitのインストール
+
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+Prerequisitesの2番について，WSLでCUDAをインストールしていない場合，GNOTの論文コード編/WSLでGPUを使用する の3番（もしくは4番）までやればいいはず
+
+### NIVIA PhysicNeMo Containerのイメージのダウンロード
+
+DockerとNVIDIA Container Toolkitがインストールできれば，以下のコマンドでPhysicNeMo Containerのイメージをダウンロードできる
+
+```bash
+sudo docker pull nvcr.io/nvidia/physicsnemo/physicsnemo:25.03    #25.03は任意のバージョンにする
+```
+
+sudoを使わない場合は，dockerグループを作ってユーザーをdockerグループに追加する https://docs.docker.com/engine/install/linux-postinstall/
+
+### NIVIA PhysicNeMo Containerを生成し，起動を行う
+
+```bash
+docker run --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --gpus all -it --rm nvcr.io/nvidia/physicsnemo/physicsnemo:25.03 bash    #--runtime nvidia ではエラーが出るので --gpus all に変更している
+```
+
+うまくいけば以下のような出力がでるはず
+
+```bash
+========================
+== NVIDIA PhysicsNeMo ==
+========================
+
+NVIDIA Release 25.03 (build 25392890)
+Modulus PyPi Version 1.0.0 (Git Commit: f87c6be)
+Modulus Sym PyPi Version 2.0.0 (Git Commit: 8f6ad0b)
+Container image Copyright (c) 2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2014-2024 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+root@3df62933a5f5:/workspace#
+```
+
 ## Tips
 
 ### おすすめのコードエディタ
