@@ -2,7 +2,11 @@
 
 GitHubとpython仮想環境とneuraloperatorライブラリを使用する
 
-neruralopとGNOTの論文コードを動かしてみる
+1. neruralopを動かしてみる
+
+2. （GNOTの論文コードを動かしてみる）
+
+3. NVIDIA physicsNeMoを動かしてみる
 
 ## neuralopライブラリ編
 
@@ -134,7 +138,19 @@ Getting Started https://docs.nvidia.com/deeplearning/physicsnemo/getting-started
 
 dockerの使い方はググればいろいろな人が記事をかいてるのでここでは省略
 
-Google Colabで動かせるか試行中・・・
+Google Colabでとりあえず動かせそう（ランタイムのタイプをCPUからT4 GPUに変更する）
+
+PhysicsNemo/ColabにあるのがGoogle Colab用のノートブック
+
+Google Colabで動かしやすいようにするかも？（参照：https://qiita.com/haraso_1130/items/20a50b0474c88781dcc1）
+
+```
+PhysicsNemo/Colab/
+    test_PhysicsNeMo.ipynb      #pipインストールしたphysicsnemoとsymの動作確認
+    tutorial1_FNO.ipynb         #physicsnemoのチュートリアル
+    Intro_PhysicsNeMoSym.ipynb  #physicsnemo-symのイントロ
+    main.ipynb                  #Colabで使いやすいようにするための第一歩
+```
 
 下記はGPU付きの個人所有WindowsPC向けの環境構築
 
