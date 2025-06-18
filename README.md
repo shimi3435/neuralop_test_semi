@@ -58,6 +58,8 @@ load_darcy_flow_small()を見ると、DarcyDatasetクラスが定義されてお
 
 ## GNOTの論文コード編
 
+論文：https://arxiv.org/abs/2302.14376
+
 ### python仮想環境構築
 
 pythonのバージョンが3.10以上だとエラーが出たので注意。python3.9.21で実行を確認。
