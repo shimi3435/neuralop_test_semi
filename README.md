@@ -8,6 +8,8 @@ GitHubとpython仮想環境とneuraloperatorライブラリを使用する
 
 3. NVIDIA physicsNeMoを動かしてみる
 
+4. （PS上で動かしてみる）
+
 ## neuralopライブラリ編
 
 ### python仮想環境構築
@@ -216,6 +218,51 @@ https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
 
 root@3df62933a5f5:/workspace#
 ```
+
+## プラズマシミュレータのGPUを使用した実行について
+
+PSのポータルサイトに入るために必要なものは，はがきに書いてあるIDとPWとスマホアプリのDuo Mobile
+
+その後ポータルサイトから公開鍵の登録をすればPSにsshできる
+
+PSにsshするのに必要なのは，登録した公開鍵に対応した秘密鍵とワンタイムパスワード（スマホのGoogle Authenticatorにした）
+
+ユーザーガイドによると，ホームディレクトリ以下はログイン時に必要なファイル(.sshの中身とか)を置いて，それ以外のファイルはdataディレクトリにおいてほしいらしい
+
+t-shimizuは/data/t-shimizu/workspace/python3/neuralop_test_semi/みたいな感じにした
+
+pythonの仮想環境を使用したいが，pyenvは使えなさそう（OSに必要なライブラリがはいってなさそう）
+
+システムにpython3.9とpython3.12が用意されているため，3.9と3.12の仮想環境は作れる
+
+```bash
+cd /data/t-shimizu/workspace/python3/neuralop_test_semi/
+
+python3.9 -m venv .venv_3_9
+. .venv_3_9/bin/activate
+deactivate
+
+python3.12 -m venv .venv_3_12
+. .venv_3_12/bin/activate
+deactivate
+```
+
+PSにsshして最初にいるところはフロントシステム部であり，GPUを使用するためには，フロントシステム部からGPUが搭載されている計算サーバへジョブを投入してジョブの完了を待つ必要がある
+
+その際に使用するのがジョブスクリプトと呼ばれるもの（PS_testのPS_jobscript_helloworld.shなど）
+
+フロントシステム部からジョブを投げるコマンドがqsub，投入したジョブの状態を見るコマンドがqstat
+
+```bash
+qsub PS_jobscript_helloworld.sh
+qstat -x #-xは過去に投入したジョブの状態も見れる 実行中のものを見るだけならqstat単体でOK
+```
+
+ジョブスクリプトの記述によるが，基本的にはジョブが終了すると標準出力結果が[タスクの名前].o[ジョブ番号]，標準エラー出力結果が[タスクの名前].e[ジョブ番号]として返ってくる．
+
+pytorchをベースにしているneuraloperatorライブラリのFNO学習において，GPUを使用した実行は確認できた（https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/native_linux/install-pytorch.html 参照）
+
+physicsnemoはダメそう；；
 
 ## Tips
 
