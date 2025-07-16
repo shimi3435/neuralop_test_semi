@@ -266,6 +266,10 @@ physicsnemoはダメそう；；
 
 ## Tips
 
+### CS53プログラミングWikiのURL
+
+https://t-shmizu.notion.site/CS53-Wiki-a0b90fbf7b46480fb78564808a11882f?source=copy_link
+
 ### おすすめのコードエディタ
 
 （WindowsならWSL + ）VSCode 
