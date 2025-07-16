@@ -17,13 +17,13 @@ python --version
 which python
 python ./helloworld.py
 
-. .venv_3_9/bin/activate
+. ../.venv_3_9/bin/activate
 python --version
 which python
 python ./helloworld.py
 deactivate
 
-. .venv_3_12/bin/activate
+. ../.venv_3_12/bin/activate
 python --version
 which python
 python ./helloworld.py
